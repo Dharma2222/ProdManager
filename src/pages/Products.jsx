@@ -3,7 +3,7 @@ import { Container, Row, Col, Button, Modal } from 'react-bootstrap';
 import ProductCard from '../components/ProductCard';
 import AddProduct from '../components/AddProduct';
 import { useDispatch, useSelector } from 'react-redux';
-import { createProduct, deleteProduct, fetchProducts } from '../redux/actions/productAction';
+import { createProduct, deleteProduct, fetchProducts, updateProduct } from '../redux/actions/productAction';
 
 const Products = () => {
   const [showModal, setShowModal] = useState(false);
@@ -31,6 +31,8 @@ const Products = () => {
   //   }
   // ]);
   const {products} = useSelector((state)=>state.items);
+  const [isEdit,setIsEdit] = useState(null);
+  const [currProduct,setCurrProduct] = useState(null);
   const dispatch = useDispatch();
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
@@ -40,7 +42,10 @@ const Products = () => {
 
   const handleAddProduct = (newProduct) => {
     // Generate a simple ID (in a real app, this would come from your backend)
-    dispatch(createProduct(newProduct));
+    if(isEdit != null)
+        dispatch(updateProduct(isEdit,newProduct));
+    else  
+      dispatch(createProduct(newProduct));
     handleClose();
   };
 
@@ -48,16 +53,21 @@ const Products = () => {
     dispatch(deleteProduct(prodId));
   }
 
-  const handleEdit = (prodId) =>{
-    dispatch(deleteProduct(prodId));
+  const handleEdit = (id) => {
+    setIsEdit(id);
+    setShowModal(true);
+    setCurrProduct(products.find(p => p.id === id));
   }
-
   return (
     <section id="products" className="mb-5">
       <Container>
         <div className="d-flex justify-content-between align-items-center mb-4">
           <h1>ProdManage</h1>
-          <Button variant="primary" onClick={handleShow}>
+          <Button variant="primary" onClick={()=>{
+            handleShow();
+            setCurrProduct(null);
+          }
+            }>
             Add Product
           </Button>
         </div>
@@ -76,7 +86,7 @@ const Products = () => {
             <Modal.Title>Add New Product</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <AddProduct onAddProduct={handleAddProduct} />
+            <AddProduct onAddProduct={handleAddProduct} currProduct = {currProduct}/>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>

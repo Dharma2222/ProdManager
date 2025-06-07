@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
-const AddProduct = ({ onAddProduct }) => {
+const AddProduct = ({ onAddProduct,currProduct }) => {
+
   const [product, setProduct] = useState({
     name: '',
     description: '',
     price: '',
     image: ''
   });
-
+  useEffect(()=>{
+    if(currProduct)
+      setProduct(currProduct)
+  },[])
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProduct(prev => ({ ...prev, [name]: value }));

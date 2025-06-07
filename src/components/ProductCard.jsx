@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, handleEdit, handleDelete }) => {
   return (
     <Card className="h-100 shadow-sm">
       {/* Product Image Container - Added to control aspect ratio */}
@@ -36,10 +36,10 @@ const ProductCard = ({ product }) => {
         
         {/* Action Buttons */}
         <div className="d-flex justify-content-between mt-3">
-          <Button variant="outline-primary" size="sm" className="d-flex align-items-center">
+          <Button onClick={()=>handleEdit(product.id)} variant="outline-primary" size="sm" className="d-flex align-items-center">
             <FaEdit className="me-1" /> Edit
           </Button>
-          <Button variant="outline-danger" size="sm" className="d-flex align-items-center">
+          <Button onClick={()=>handleDelete(product.id)} variant="outline-danger" size="sm" className="d-flex align-items-center">
             <FaTrash className="me-1" /> Delete
           </Button>
         </div>
