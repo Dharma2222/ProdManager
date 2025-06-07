@@ -5,8 +5,11 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import Products from './pages/Products';
 import Contact from './pages/Contact';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 function App() {
   return (
+    <Provider store={store}>
     <BrowserRouter>
       <MyNavbar />
       <Routes>
@@ -15,6 +18,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
       </Routes>
     </BrowserRouter>
+    </Provider>
   )
 }
 
