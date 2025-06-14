@@ -29,14 +29,14 @@ import {
         return {
           ...state,
           loading: false,
-          products: state.products.map((p) => p.id === action.payload.id ? action.payload : p),
+          products: state.products.map((p) => p._id === action.payload._id ? action.payload : p),
         };
   
       case DELETE_PRODUCT_SUCCESS:
         return {
           ...state,
           loading: false,
-          products: state.products.filter((p) => p.id !== action.payload),
+          products: state.products.filter((p) => p._id !== action.payload),
         };
   
       case CREATE_PRODUCT_FAILURE:

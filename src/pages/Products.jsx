@@ -56,7 +56,7 @@ const Products = () => {
   const handleEdit = (id) => {
     setIsEdit(id);
     setShowModal(true);
-    setCurrProduct(products.find(p => p.id === id));
+    setCurrProduct(products.find(p => p._id === id));
   }
   return (
     <section id="products" className="mb-5">
@@ -68,13 +68,13 @@ const Products = () => {
             setCurrProduct(null);
           }
             }>
-            Add Product
+           Add Product
           </Button>
         </div>
         
         <Row className="g-4">
           {products.map(product => (
-            <Col key={product.id} md={4}>
+            <Col key={product._id} md={4}>
               <ProductCard product={product} handleDelete={handleDelete} handleEdit={handleEdit}/>
             </Col>
           ))}

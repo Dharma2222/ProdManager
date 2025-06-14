@@ -75,7 +75,7 @@ const AddProduct = ({ onAddProduct,currProduct }) => {
       </Form.Group>
       
       <Button variant="primary" type="submit">
-        Add Product
+         {currProduct != null ?"Update":"Add"}  Product
       </Button>
     </Form>
   );

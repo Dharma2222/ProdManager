@@ -36,10 +36,10 @@ const ProductCard = ({ product, handleEdit, handleDelete }) => {
         
         {/* Action Buttons */}
         <div className="d-flex justify-content-between mt-3">
-          <Button onClick={()=>handleEdit(product.id)} variant="outline-primary" size="sm" className="d-flex align-items-center">
+          <Button onClick={()=>handleEdit(product._id)} variant="outline-primary" size="sm" className="d-flex align-items-center">
             <FaEdit className="me-1" /> Edit
           </Button>
-          <Button onClick={()=>handleDelete(product.id)} variant="outline-danger" size="sm" className="d-flex align-items-center">
+          <Button onClick={()=>handleDelete(product._id)} variant="outline-danger" size="sm" className="d-flex align-items-center">
             <FaTrash className="me-1" /> Delete
           </Button>
         </div>
