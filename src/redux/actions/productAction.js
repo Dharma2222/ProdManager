@@ -6,7 +6,7 @@ import {
   DELETE_PRODUCT_REQUEST, DELETE_PRODUCT_SUCCESS, DELETE_PRODUCT_FAILURE
 } from './types';
 
-export const axiosInst = axios.create({baseURL:"http://tutorial2-hr37.onrender.com"})
+export const axiosInst = axios.create({baseURL:"https://tutorial2-hr37.onrender.com"})
 // Create Product
 export const createProduct = (productData) => async (dispatch) => {
   dispatch({ type: CREATE_PRODUCT_REQUEST });
