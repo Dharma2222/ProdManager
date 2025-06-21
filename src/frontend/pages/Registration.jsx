@@ -1,7 +1,7 @@
 // src/components/RegistrationForm.jsx
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { axiosInst } from '../redux/actions/productAction';
+import { axiosInst } from '../../redux/actions/productAction';
 
 const RegistrationForm = () => (
     <Formik
