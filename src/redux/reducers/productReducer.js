@@ -8,6 +8,9 @@ import {
   const initialState = {
     loading: false,
     products: [],
+    page    : 1,
+    pages   : 2,
+    total   : 0,
     error: null,
   };
   
@@ -23,7 +26,9 @@ import {
         return { ...state, loading: false, products: [...state.products, action.payload] };
   
       case FETCH_PRODUCTS_SUCCESS:
-        return { ...state, loading: false, products: action.payload };
+        return { ...state, loading: false, products: action.payload.products, page    : action.payload.page,
+          pages   : action.payload.pages, total   : action.payload.total
+         };
   
       case UPDATE_PRODUCT_SUCCESS:
         return {

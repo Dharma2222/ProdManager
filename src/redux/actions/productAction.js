@@ -6,7 +6,18 @@ import {
   DELETE_PRODUCT_REQUEST, DELETE_PRODUCT_SUCCESS, DELETE_PRODUCT_FAILURE
 } from './types';
 
-export const axiosInst = axios.create({baseURL:"https://tutorial2-hr37.onrender.com"})
+export const axiosInst = axios.create({baseURL:import.meta.env.VITE_API_URL})
+
+axiosInst.interceptors.request.use(
+  config => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  error => Promise.reject(error)
+);
 // Create Product
 export const createProduct = (productData) => async (dispatch) => {
   dispatch({ type: CREATE_PRODUCT_REQUEST });
@@ -19,10 +30,10 @@ export const createProduct = (productData) => async (dispatch) => {
 };
 
 // Fetch Products
-export const fetchProducts = () => async (dispatch) => {
+export const fetchProducts = (page = 1, limit = 6) => async dispatch => {
   dispatch({ type: FETCH_PRODUCTS_REQUEST });
   try {
-    const { data } = await axiosInst.get('/api/products');
+    const { data } = await axiosInst.get( `/api/products?page=${page}&limit=${limit}`);
     dispatch({ type: FETCH_PRODUCTS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: FETCH_PRODUCTS_FAILURE, payload: error.message });
