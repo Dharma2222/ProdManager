@@ -7,7 +7,8 @@ import productRoutes from './routes/productRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import swaggerUI from 'swagger-ui-express';
 import swaggerJsDoc from 'swagger-jsdoc';
-
+import path         from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config();
 const app = express();
@@ -22,6 +23,8 @@ app.use(express.json());
 
 connectDB();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname  = path.dirname(__filename);
 // Swagger setup
 const swaggerOptions = {
   definition: {
@@ -45,8 +48,10 @@ const swaggerOptions = {
     },
     security: [{ bearerAuth: [] }],
   },
-  apis: ['./routes/*.js', './models/*.js'],
-};
+  apis: [
+    path.join(__dirname, 'routes',  '*.js'),
+    path.join(__dirname, 'models',  '*.js')
+  ]};
 const swaggerSpec = swaggerJsDoc(swaggerOptions);
 app.use('/api/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 
